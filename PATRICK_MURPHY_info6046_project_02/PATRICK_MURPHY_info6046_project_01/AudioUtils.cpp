@@ -3,7 +3,7 @@
 
 namespace audio
 {
-	void audio::CheckError(FMOD_RESULT result, const char* file, int line)
+	void CheckError(FMOD_RESULT result, const char* file, int line)
 	{
 		if (result != FMOD_OK)
 		{

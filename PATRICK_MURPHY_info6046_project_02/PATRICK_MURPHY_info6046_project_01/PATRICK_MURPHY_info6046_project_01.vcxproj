@@ -133,17 +133,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AdditionalFunctions.hpp" />
     <ClInclude Include="AudioDemo.hpp" />
     <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="AudioTimer.hpp" />
     <ClInclude Include="AudioUtils.hpp" />
+    <ClInclude Include="ChannelGroupManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AdditionalFunctions.cpp" />
     <ClCompile Include="AudioDemo.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AudioTimer.cpp" />
     <ClCompile Include="AudioUtils.cpp" />
-    <ClCompile Include="Project01.cpp" />
+    <ClCompile Include="ChannelGroupManager.cpp" />
+    <ClCompile Include="ProjectMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
