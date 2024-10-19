@@ -24,8 +24,10 @@ int main()
 	// Creating a channel
 	channelManager.CreateChannelGroup("ChannelGroup_Cave");
 	FMOD::Sound* caveWalk = nullptr;
+	FMOD::Sound* caveDrip = nullptr;
 	FMOD::Channel* caveChannel = nullptr;
 	channelManager.CreateSound("audio/P2_CaveWalk.wav", caveWalk);
+	channelManager.CreateSound("audio/P2_WaterDrip.wav", caveWalk);
 
 	std::vector<FMOD::Sound*> sounds = channelManager.getSoundsList();
 	FMOD::ChannelGroup* channelGroup = channelManager.getChannelGroup();
@@ -102,6 +104,7 @@ int main()
 					channelGroup->setVolume(initialVolume);
 					channelGroup->setPitch(initialPitch);
 					channelManager.PlayAudioChannel(sounds[0], caveChannel);
+					channelManager.PlayAudioChannel(sounds[1], caveChannel);
 					channelManager.ModifyChannelGroupDSP();
 				}
 			}

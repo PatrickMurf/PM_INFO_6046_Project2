@@ -235,20 +235,26 @@ namespace audio
 
 
 
-	float ChannelManager::SetChannelVolume(float value)
+	void ChannelManager::SetChannelVolume(float value)
 	{
-		float volume;
+		/*float volume;
 		FMOD_RESULT result = m_channelGroup->getVolume(&volume);
 		FMODCheckError(result);
-		return volume;
+		return volume;*/
+
+		FMOD_RESULT result = m_channelGroup->setVolume(value);
+		FMODCheckError(result);
 	}
 
-	float ChannelManager::SetChannelPitch(float value)
+	void ChannelManager::SetChannelPitch(float value)
 	{
-		float pitch;
+		/*float pitch;
 		FMOD_RESULT result = m_channelGroup->getPitch(&pitch);
 		FMODCheckError(result);
-		return pitch;
+		return pitch;*/
+
+		FMOD_RESULT result = m_channelGroup->setPitch(value);
+		FMODCheckError(result);
 	}
 
 	// ~~~ Not sure about how to implement this right now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -258,9 +264,17 @@ namespace audio
 		pan = m_channelGroup->pan;
 		return pan;
 	}*/
+	float ChannelManager::SetChannelPan(int id, float value)
+	{
+		float pan;
+		pan = FMOD_ChannelGroup_SetPan(m_channelGroup->getChannel[id]);
+		return pan;
+	}
 
 	void ChannelManager::SetPause(bool pause)
 	{
+		
+
 		FMOD_RESULT result = m_channelGroup->setPaused(pause);
 		FMODCheckError(result);
 	}
@@ -291,7 +305,7 @@ namespace audio
 		float volume;
 		FMOD_RESULT result = m_channelGroup->getVolume(&volume);
 		FMODCheckError(result);
-		return volume;
+		return volume;		
 	}
 
 	float ChannelManager::GetChannelPitch()

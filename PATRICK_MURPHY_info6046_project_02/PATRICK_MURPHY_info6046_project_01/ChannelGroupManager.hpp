@@ -60,8 +60,8 @@ namespace audio
 		void ModifyChannelGroupDSP();
 
 		//Modification of sound channels
-		float SetChannelVolume(float value);
-		float SetChannelPitch(float value);
+		void SetChannelVolume(float value);
+		void SetChannelPitch(float value);
 		//float SetChannelPan(int id, float value);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		//Pause and other controls
