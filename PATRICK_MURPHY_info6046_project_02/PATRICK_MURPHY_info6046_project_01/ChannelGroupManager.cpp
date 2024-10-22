@@ -264,12 +264,12 @@ namespace audio
 		pan = m_channelGroup->pan;
 		return pan;
 	}*/
-	float ChannelManager::SetChannelPan(int id, float value)
+	/*float ChannelManager::SetChannelPan(int id, float value)
 	{
 		float pan;
 		pan = FMOD_ChannelGroup_SetPan(m_channelGroup->getChannel[id]);
 		return pan;
-	}
+	}*/
 
 	void ChannelManager::SetPause(bool pause)
 	{

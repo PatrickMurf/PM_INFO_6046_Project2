@@ -62,7 +62,7 @@ namespace audio
 		//Modification of sound channels
 		void SetChannelVolume(float value);
 		void SetChannelPitch(float value);
-		//float SetChannelPan(int id, float value);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//float SetChannelPan(int id, float value);	//<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		//Pause and other controls
 		void SetPause(bool pause);
