@@ -41,12 +41,6 @@
     <ClCompile Include="AudioUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioDemo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AudioTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

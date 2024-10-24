@@ -142,8 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdditionalFunctions.cpp" />
-    <ClCompile Include="AudioDemo.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AudioTimer.cpp" />
     <ClCompile Include="AudioUtils.cpp" />
     <ClCompile Include="ChannelGroupManager.cpp" />

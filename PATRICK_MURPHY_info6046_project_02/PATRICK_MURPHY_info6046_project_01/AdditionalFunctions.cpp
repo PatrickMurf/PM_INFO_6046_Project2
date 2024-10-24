@@ -2,8 +2,6 @@
 
 void RepeatControls()
 {
-	// Old print statement
-	//printf("\nThe controls are:\n P to show controls again\n O to show sound settings\n\n Number keys for sounds\n Q for play/pause\n W for stop\n\n Z/X for volume\n C/V for pitch\n B/N for pan\n M to reset defaults\n");
 	std::cout << "\n\n"
 		<< "\nThe controls are:"
 		<< "\n P to show controls again"
@@ -25,12 +23,10 @@ bool checkPlaystateAction(bool desireActive, bool soundInProgress)
 
 	if (desireActive == true)
 	{
-		//if (channelPlayingStatus == true) { testpassed = true; }
 		if (soundInProgress == true) { testpassed = true; }
 	}
 	else
 	{
-		//if (channelPlayingStatus == false) { testpassed = true; }
 		if (soundInProgress == false) { testpassed = true; }
 	}
 

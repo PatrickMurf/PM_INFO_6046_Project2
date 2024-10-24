@@ -46,12 +46,6 @@ namespace audio
 
 		printf("ChannelManager::Initialize() / AudioRecording:  Successful!\n");
 
-		// ~~~ Unused flag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		/*for (int i = 0; i < 20; i++)
-		{
-			m_channelList.push_back(new Channel);
-		}*/
-
 		m_isInitialized = true;
 	}
 
@@ -66,12 +60,9 @@ namespace audio
 
 		for (FMOD::Sound* sound : sounds)
 		{
-			//result = pair.second->Audio->release();		-- OLD	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			result = sound->release();
 			FMODCheckError(result);
 		}
-
-		//m_audioMap.clear();		-OLD ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		result = m_channelGroup->release();
 
@@ -158,8 +149,6 @@ namespace audio
 		{
 			return;
 		}
-
-		// ~~~ Edit flag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		if (dspType == 0)
 		{
@@ -278,11 +267,9 @@ namespace audio
 	{
 		float retriveVolume = GetChannelVolume(channelGroup);
 		float retrivePitch = GetChannelPitch(channelGroup);
-		//float retrivePan = GetChannelPan(channelId);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		printf("\n\n\n");
 		printf("The volume is: %f\n", retriveVolume);
 		printf("The pitch is: %f\n", retrivePitch);
-		//printf("The pan is: %f\n", retrivePan); < -TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	}
 
 
@@ -292,39 +279,15 @@ namespace audio
 
 	void ChannelManager::SetChannelVolume(float value, FMOD::ChannelGroup* channelGroup)
 	{
-		/*float volume;
-		FMOD_RESULT result = m_channelGroup->getVolume(&volume);
-		FMODCheckError(result);
-		return volume;*/
-
 		FMOD_RESULT result = channelGroup->setVolume(value);
 		FMODCheckError(result);
 	}
 
 	void ChannelManager::SetChannelPitch(float value, FMOD::ChannelGroup* channelGroup)
 	{
-		/*float pitch;
-		FMOD_RESULT result = m_channelGroup->getPitch(&pitch);
-		FMODCheckError(result);
-		return pitch;*/
-
 		FMOD_RESULT result = channelGroup->setPitch(value);
 		FMODCheckError(result);
 	}
-
-	// ~~~ Not sure about how to implement this right now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	/*float ChannelManager::SetChannelPan(int id, float value)
-	{
-		float pan;
-		pan = m_channelGroup->pan;
-		return pan;
-	}*/
-	/*float ChannelManager::SetChannelPan(int id, float value)
-	{
-		float pan;
-		pan = FMOD_ChannelGroup_SetPan(m_channelGroup->getChannel[id]);
-		return pan;
-	}*/
 
 	void ChannelManager::SetPause(bool pause)
 	{
@@ -339,13 +302,6 @@ namespace audio
 		FMOD_RESULT result = m_channelGroup->stop();
 		FMODCheckError(result);
 	}
-
-	// ~~~ Not sure about how to implement this right now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	/*void ChannelManager::GetChannelPlaybackPosition(int id, unsigned int& value)
-	{
-		FMOD_RESULT result = m_channelGroup->getChannel()->getPosition(&value, FMOD_TIMEUNIT_MS);
-		FMODCheckError(result);
-	}*/
 
 	bool ChannelManager::CheckChannelIsPlaying()
 	{
@@ -370,14 +326,6 @@ namespace audio
 		FMODCheckError(result);
 		return pitch;
 	}
-
-	// ~~~ Not sure about how to implement this right now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	/*float ChannelManager::GetChannelPan(int id)
-	{
-		float pan;
-		pan = m_channelGroup->pan;
-		return pan;
-	}*/
 
 	void ChannelManager::GetPauseState(bool& pause)
 	{

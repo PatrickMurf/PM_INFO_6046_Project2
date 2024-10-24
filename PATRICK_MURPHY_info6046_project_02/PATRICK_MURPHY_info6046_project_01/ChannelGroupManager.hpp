@@ -40,14 +40,6 @@ namespace audio
 		void Destroy(std::vector<FMOD::Sound*> sounds);
 		void Update();
 
-
-		//	//Loading related
-		//	void LoadAudioStream(const char* source);
-		//	void LoadAudio(const char* file);
-
-		//Play sounds related	// OLD
-		//	int PlayAudio(const char* audioName);	// OLD
-
 		//Channelgroup creation & playsound related
 		void CreateSound(const char* filename, FMOD::Sound* sound);
 		void CreateChannelGroup(const char* channelId);
@@ -63,22 +55,18 @@ namespace audio
 		//Modification of sound channels
 		void SetChannelVolume(float value, FMOD::ChannelGroup* channelGroup);
 		void SetChannelPitch(float value, FMOD::ChannelGroup* channelGroup);
-		//float SetChannelPan(int id, float value);	//<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		//Pause and other controls
 		void SetPause(bool pause);
 		void SoundStop();
 
 		//Get information
-		//void GetChannelPlaybackPosition(int id, unsigned int& value);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		bool CheckChannelIsPlaying();
 
 		float GetChannelVolume(FMOD::ChannelGroup* channelGroup);
 		float GetChannelPitch(FMOD::ChannelGroup* channelGroup);
-		//float GetChannelPan(int id);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		void GetPauseState(bool& pause);
-		//void GetAudioLength(int id);		<- This one might not be needed ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	};
 
 
@@ -92,54 +80,4 @@ namespace audio
 		unsigned int length;
 	};
 
-	////class ChannelManager
-	////{
-	////private:
-	////	bool m_isInitialized = false;
-	////	int m_nextChannelId = 0;
-
-	////	std::vector<Channel*> m_channelList;
-
-	////	FMOD::System* m_System = nullptr;
-
-	////public:
-	////	ChannelManager();
-
-	////	~ChannelManager();
-
-	//	std::map<const char*, Audio*> m_audioMap;
-	//	const char* soundIndex = "";
-
-	////	//Basic system functions
-	////	void Initialize();
-	////	void Destroy();
-	////	void Update();
-
-	//	//Loading related
-	//	void LoadAudioStream(const char* source);
-	//	void LoadAudio(const char* file);
-
-	//	//Play sounds related
-	//	int PlayAudio(const char* audioName);
-
-	////	//Modification of sound channels
-	////	void SetChannelVolume(int id, float value);
-	////	void SetChannelPitch(int id, float value);
-	////	void SetChannelPan(int id, float value);
-
-	////	//Pause and other controls
-	////	void SetPause(int id, bool pause);
-	////	void SoudStop(int id);
-
-	////	//Get information
-	////	void GetChannelPlaybackPosition(int id, unsigned int& value);
-	////	bool CheckChannelIsPlaying(int id);
-
-	////	float GetChannelVolume(int id);
-	////	float GetChannelPitch(int id);
-	////	float GetChannelPan(int id);
-
-	////	void GetPauseState(int id, bool& pause);
-	////	void GetAudioLength(int id);
-	////};
 }

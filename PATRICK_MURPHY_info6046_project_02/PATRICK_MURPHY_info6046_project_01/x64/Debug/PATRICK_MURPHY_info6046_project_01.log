@@ -1,3 +1,6 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (PATRICK_MURPHY_info6046_project_01.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  AdditionalFunctions.cpp
+  ChannelGroupManager.cpp
   ProjectMain.cpp
+  Generating Code...
   PATRICK_MURPHY_info6046_project_01.vcxproj -> C:\Users\codea\OneDrive\Desktop\New Fanshawe\2_Fanshawe_Work\Wednesday (6046)\PM_INFO_6046_Project2\PATRICK_MURPHY_info6046_project_02\x64\Debug\PATRICK_MURPHY_info6046_project_01.exe
