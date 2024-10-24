@@ -7,6 +7,7 @@
 	(DSP type: distortion)
 #2 (scene 3):	Popcorn being made in a microwave
 	(DSP type: chorus)
+#3 (3D scene):	The cave scene again, but with a 3D listener.
 
 --- Sources of sounds:
 -> "CaveWalk":	https://freesound.org/people/launemax/sounds/249917/

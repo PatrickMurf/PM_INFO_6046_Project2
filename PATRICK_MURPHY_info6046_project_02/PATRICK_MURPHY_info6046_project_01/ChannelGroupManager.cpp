@@ -125,6 +125,26 @@ namespace audio
 		std::cout << "Successfully created the sound " << filename << " !\n";
 	}
 
+	// === 3D Sound create <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	void ChannelManager::Create3DSound(const char* filename, FMOD::Sound* sound)
+	{
+		if (!m_isInitialized)
+		{
+			return;
+		}
+
+		FMOD_RESULT result = m_System->createSound(filename, FMOD_3D, 0, &sound);
+		m_SoundsList.push_back(sound);
+
+		if (result != FMOD_OK)
+		{
+			FMODCheckError(result);
+			return;
+		}
+
+		std::cout << "Successfully created the sound " << filename << " !\n";
+	}
+
 	void ChannelManager::CreateChannelGroup(const char* channelId)
 	{
 		if (!m_isInitialized)
@@ -261,6 +281,129 @@ namespace audio
 		}
 
 		std::cout << "Now playing the sound:  " << soundName << " !\n";
+	}
+
+	// === This for 3D <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	void ChannelManager::Play3DAudioChannel(FMOD::Sound* sound, FMOD::Channel* channel)
+	{
+		if (!m_isInitialized)
+		{
+			return;
+		}
+
+		FMOD_VECTOR soundPosition = { 0.0f, 0.0f, 0.0f };
+		FMOD_VECTOR soundVelocity = { 1.0f, 0.0f, 0.0f };
+		FMOD_RESULT result = m_System->playSound(sound, nullptr, true, &channel); // Setting up the sound to be played
+
+		if (result != FMOD_OK)
+		{
+			FMODCheckError(result);
+			return;
+		}
+
+		result = channel->setChannelGroup(m_channelGroup);
+
+		if (result != FMOD_OK)
+		{
+			FMODCheckError(result);
+			return;
+		}
+
+		channel->set3DAttributes(&soundPosition, &soundVelocity);
+		result = channel->setPaused(false); // Allow the sound to play / start
+
+		if (result != FMOD_OK)
+		{
+			FMODCheckError(result);
+			return;
+		}
+
+		FMOD_VECTOR listenerPosition = { 0.0f, 0.0f, 0.0f };
+		FMOD_VECTOR listenerVelocity = { 0.0f, 0.0f, 0.0f };
+
+		/*
+		while (true)
+		{
+			FMOD_VECTOR forward = { cos(listenerPosition.y), 0.0f, sin(listenerPosition.y) };
+			FMOD_VECTOR up = { 0.0f, 1.0f, 0.0f };
+			//SetListenerAttributes(listenerPosition, listenerVelocity, forward, { 0.0f, 1.0f, 0.0f });
+			m_System->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &forward, &up);
+				// Update FMOD system
+				soundPosition.x += soundVelocity.x;
+				soundVelocity.x *= 0.99f;
+
+				m_Channel->set3DAttributes(&soundPosition, &soundVelocity);
+
+				Update();
+
+				// Sleep for a bit to simulate a frame rate
+				std::this_thread::sleep_for(std::chrono::milliseconds(16)); // Roughly 60 FPS
+		}
+		*/
+		FMOD_VECTOR forward = { cos(listenerPosition.y), 0.0f, sin(listenerPosition.y) };
+		FMOD_VECTOR up = { 0.0f, 1.0f, 0.0f };
+		m_System->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &forward, &up);
+		channel->set3DAttributes(&soundPosition, &soundVelocity);
+
+
+
+
+
+		//void AudioDSP::CreateSound3D(const char* filename)
+		//{
+		//	if (!m_Initialized)
+		//		return;
+
+		//	FMOD_RESULT result;
+
+		//	result = m_System->createSound(filename, FMOD_3D, 0, &m_Sound);
+
+		//	if (result != FMOD_OK)
+		//	{
+		//		FMODCheckError(result);
+		//		return;
+		//	}
+
+		//	printf("Sound successfully created!\n");
+		//}
+
+		//void AudioDSP::SetListenerAttributes(FMOD_VECTOR position, FMOD_VECTOR velocity, FMOD_VECTOR forward, FMOD_VECTOR up)
+		//{
+		//	m_System->set3DListenerAttributes(0, &position, &velocity, &forward, &up);
+		//}
+
+		//void AudioDSP::Play3DSound()
+		//{
+		//	if (!m_Initialized)
+		//		return;
+
+		//	FMOD_VECTOR soundPosition = { 0.0f, 0.0f, 0.0f };
+		//	FMOD_VECTOR soundVelocity = { 1.0f, 0.0f, 0.0f };
+		//	m_System->playSound(m_Sound, nullptr, true, &m_Channel); // Play but don't start yet
+		//	m_Channel->set3DAttributes(&soundPosition, &soundVelocity);
+		//	m_Channel->setPaused(false); // Start the sound
+		//	std::cout << "Playing sound in 3D." << std::endl;
+
+		//	FMOD_VECTOR listenerPosition = { 0.0f, 0.0f, 0.0f };
+		//	FMOD_VECTOR listenerVelocity = { 0.0f, 0.0f, 0.0f };
+
+
+		//	while (true)
+		//	{
+		//		FMOD_VECTOR forward = { cos(listenerPosition.y), 0.0f, sin(listenerPosition.y) };
+		//		SetListenerAttributes(listenerPosition, listenerVelocity, forward, { 0.0f, 1.0f, 0.0f });
+		//		// Update FMOD system
+		//		soundPosition.x += soundVelocity.x;
+		//		soundVelocity.x *= 0.99f;
+
+		//		m_Channel->set3DAttributes(&soundPosition, &soundVelocity);
+
+		//		Update();
+
+		//		// Sleep for a bit to simulate a frame rate
+		//		std::this_thread::sleep_for(std::chrono::milliseconds(16)); // Roughly 60 FPS
+		//	}
+		//}
 	}
 
 	void ChannelManager::DisplayChannelGroupInfo(FMOD::ChannelGroup* channelGroup)

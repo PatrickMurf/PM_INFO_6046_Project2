@@ -8,7 +8,7 @@ The controls should be fairly intuitive...Mainly because the program displays th
 -> The help menu shows up when the project is first loaded; and can be brought up again with 'P'.  It will explain your controls to you.
 -> 'O' will show you the current settings for volume, & pitch.
 
--> Number keys 1 through 3 will play a sound.  (Try to avoid having more than 1 sound at a time.)
+-> Number keys 1 through 3 will play a sound.  (Try to avoid having more than 1 sound at a time.)  Also key #4 is a 3D listener version of the cave scene.
 -> 'Q' will toggle if the sound is played/paused.  (Requires a sound currently active.)
 -> 'W' will immediately end a sound from playing.  (Requires a sound currently active.)
 

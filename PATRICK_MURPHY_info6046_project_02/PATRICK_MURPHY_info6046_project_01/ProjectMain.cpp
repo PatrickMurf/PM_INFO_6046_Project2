@@ -40,6 +40,15 @@ int main()
 	std::vector<FMOD::Sound*> popcornSounds = channelManager.getSoundsList();
 	listChannelGroups.push_back(channelManager.getChannelGroup());
 
+	channelManager.CreateChannelGroup("ChannelGroup_Cave3d");
+	FMOD::Sound* caveWalk3d = nullptr;
+	FMOD::Sound* caveDrip3d = nullptr;
+	FMOD::Channel* caveChannel3d = nullptr;
+	channelManager.Create3DSound("audio/P2_CaveWalk.wav", caveWalk3d);
+	channelManager.Create3DSound("audio/P2_WaterDrip.wav", caveDrip3d);
+	std::vector<FMOD::Sound*> caveSounds3d = channelManager.getSoundsList();
+	listChannelGroups.push_back(channelManager.getChannelGroup());
+
 
 
 	int currentChannel = NULL;
@@ -123,6 +132,20 @@ int main()
 					channelManager.PlayAudioChannel(popcornSounds[4], caveChannel);
 					channelManager.PlayAudioChannel(popcornSounds[5], caveChannel);
 					channelManager.ModifyChannelGroupDSP(2);
+				}
+			}
+
+			// Try to make this pne 3D
+				// (See week 4)
+			if (keyPress == '4')
+			{
+				{
+					currentChannel = 3;
+					listChannelGroups[currentChannel]->setVolume(initialVolume);
+					listChannelGroups[currentChannel]->setPitch(initialPitch);
+					channelManager.Play3DAudioChannel(caveSounds3d[0], caveChannel3d);
+					channelManager.Play3DAudioChannel(caveSounds3d[1], caveChannel3d);
+					channelManager.ModifyChannelGroupDSP(3);
 				}
 			}
 

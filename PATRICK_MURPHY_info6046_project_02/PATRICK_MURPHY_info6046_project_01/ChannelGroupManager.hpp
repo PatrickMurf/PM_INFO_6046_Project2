@@ -24,8 +24,6 @@ namespace audio
 		bool m_isInitialized = false;
 		int m_nextChannelId = 0;
 
-		//std::vector<Channel*> m_channelList;	-OLD	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 		FMOD::ChannelGroup* m_channelGroup = nullptr;
 		std::vector<FMOD::Sound*> m_SoundsList;
 
@@ -42,9 +40,11 @@ namespace audio
 
 		//Channelgroup creation & playsound related
 		void CreateSound(const char* filename, FMOD::Sound* sound);
+		void Create3DSound(const char* filename, FMOD::Sound* sound);
 		void CreateChannelGroup(const char* channelId);
 
 		void PlayAudioChannel(FMOD::Sound* sound, FMOD::Channel* channel);
+		void Play3DAudioChannel(FMOD::Sound* sound, FMOD::Channel* channel);
 		void DisplayChannelGroupInfo(FMOD::ChannelGroup* channelGroup);
 		std::vector<FMOD::Sound*> getSoundsList();
 		FMOD::ChannelGroup* getChannelGroup();
