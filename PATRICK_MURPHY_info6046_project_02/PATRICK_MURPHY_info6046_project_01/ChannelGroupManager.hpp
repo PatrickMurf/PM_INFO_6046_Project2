@@ -53,15 +53,16 @@ namespace audio
 		void CreateChannelGroup(const char* channelId);
 
 		void PlayAudioChannel(FMOD::Sound* sound, FMOD::Channel* channel);
-		void DisplayChannelGroupInfo();
+		void DisplayChannelGroupInfo(FMOD::ChannelGroup* channelGroup);
 		std::vector<FMOD::Sound*> getSoundsList();
 		FMOD::ChannelGroup* getChannelGroup();
+		void setChannelGroup(FMOD::ChannelGroup* channel);
 
-		void ModifyChannelGroupDSP();
+		void ModifyChannelGroupDSP(int dspType);
 
 		//Modification of sound channels
-		void SetChannelVolume(float value);
-		void SetChannelPitch(float value);
+		void SetChannelVolume(float value, FMOD::ChannelGroup* channelGroup);
+		void SetChannelPitch(float value, FMOD::ChannelGroup* channelGroup);
 		//float SetChannelPan(int id, float value);	//<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		//Pause and other controls
@@ -72,8 +73,8 @@ namespace audio
 		//void GetChannelPlaybackPosition(int id, unsigned int& value);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		bool CheckChannelIsPlaying();
 
-		float GetChannelVolume();
-		float GetChannelPitch();
+		float GetChannelVolume(FMOD::ChannelGroup* channelGroup);
+		float GetChannelPitch(FMOD::ChannelGroup* channelGroup);
 		//float GetChannelPan(int id);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		void GetPauseState(bool& pause);

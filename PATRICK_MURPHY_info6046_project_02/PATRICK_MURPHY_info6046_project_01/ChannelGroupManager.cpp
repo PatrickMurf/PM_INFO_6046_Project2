@@ -110,6 +110,11 @@ namespace audio
 		return m_channelGroup;
 	}
 
+	void ChannelManager::setChannelGroup(FMOD::ChannelGroup* channel)
+	{
+		m_channelGroup = channel;
+	}
+
 	void ChannelManager::CreateSound(const char* filename, FMOD::Sound* sound)
 	{
 		if (!m_isInitialized)
@@ -147,7 +152,7 @@ namespace audio
 		std::cout << "The channel grouping " << channelId << " has been created!\n";
 	}
 
-	void ChannelManager::ModifyChannelGroupDSP()
+	void ChannelManager::ModifyChannelGroupDSP(int dspType)
 	{
 		if (!m_isInitialized)
 		{
@@ -156,24 +161,74 @@ namespace audio
 
 		// ~~~ Edit flag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		FMOD::DSP* dspTypeEcho;
-		FMOD_RESULT result = m_System->createDSPByType(FMOD_DSP_TYPE_ECHO, &dspTypeEcho);
-
-		if (result != FMOD_OK)
+		if (dspType == 0)
 		{
-			FMODCheckError(result);
-			return;
+			// Echo
+			FMOD::DSP* dspTypeEcho;
+			FMOD_RESULT resultEcho = m_System->createDSPByType(FMOD_DSP_TYPE_ECHO, &dspTypeEcho);
+
+			if (resultEcho != FMOD_OK)
+			{
+				FMODCheckError(resultEcho);
+				return;
+			}
+
+			resultEcho = dspTypeEcho->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.8f);
+
+			if (resultEcho != FMOD_OK)
+			{
+				FMODCheckError(resultEcho);
+				return;
+			}
+
+			m_channelGroup->addDSP(0, dspTypeEcho);
 		}
 
-		result = dspTypeEcho->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.8f);
-
-		if (result != FMOD_OK)
+		if (dspType == 1)
 		{
-			FMODCheckError(result);
-			return;
+			// Distortion
+			FMOD::DSP* dspTypeDistortion;
+			FMOD_RESULT resultDistortion = m_System->createDSPByType(FMOD_DSP_TYPE_DISTORTION, &dspTypeDistortion);
+
+			if (resultDistortion != FMOD_OK)
+			{
+				FMODCheckError(resultDistortion);
+				return;
+			}
+
+			resultDistortion = dspTypeDistortion->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.8f);
+
+			if (resultDistortion != FMOD_OK)
+			{
+				FMODCheckError(resultDistortion);
+				return;
+			}
+
+			m_channelGroup->addDSP(1, dspTypeDistortion);
 		}
 
-		m_channelGroup->addDSP(0, dspTypeEcho);
+		if (dspType == 2)
+		{
+			// Chorus
+			FMOD::DSP* dspTypeChorus;
+			FMOD_RESULT resultChorus = m_System->createDSPByType(FMOD_DSP_TYPE_CHORUS, &dspTypeChorus);
+
+			if (resultChorus != FMOD_OK)
+			{
+				FMODCheckError(resultChorus);
+				return;
+			}
+
+			resultChorus = dspTypeChorus->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.8f);
+
+			if (resultChorus != FMOD_OK)
+			{
+				FMODCheckError(resultChorus);
+				return;
+			}
+
+			m_channelGroup->addDSP(2, dspTypeChorus);
+		}
 	}
 
 	void ChannelManager::PlayAudioChannel(FMOD::Sound* sound, FMOD::Channel* channel)
@@ -219,10 +274,10 @@ namespace audio
 		std::cout << "Now playing the sound:  " << soundName << " !\n";
 	}
 
-	void ChannelManager::DisplayChannelGroupInfo()
+	void ChannelManager::DisplayChannelGroupInfo(FMOD::ChannelGroup* channelGroup)
 	{
-		float retriveVolume = GetChannelVolume();
-		float retrivePitch = GetChannelPitch();
+		float retriveVolume = GetChannelVolume(channelGroup);
+		float retrivePitch = GetChannelPitch(channelGroup);
 		//float retrivePan = GetChannelPan(channelId);	<- TODO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		printf("\n\n\n");
 		printf("The volume is: %f\n", retriveVolume);
@@ -235,25 +290,25 @@ namespace audio
 
 
 
-	void ChannelManager::SetChannelVolume(float value)
+	void ChannelManager::SetChannelVolume(float value, FMOD::ChannelGroup* channelGroup)
 	{
 		/*float volume;
 		FMOD_RESULT result = m_channelGroup->getVolume(&volume);
 		FMODCheckError(result);
 		return volume;*/
 
-		FMOD_RESULT result = m_channelGroup->setVolume(value);
+		FMOD_RESULT result = channelGroup->setVolume(value);
 		FMODCheckError(result);
 	}
 
-	void ChannelManager::SetChannelPitch(float value)
+	void ChannelManager::SetChannelPitch(float value, FMOD::ChannelGroup* channelGroup)
 	{
 		/*float pitch;
 		FMOD_RESULT result = m_channelGroup->getPitch(&pitch);
 		FMODCheckError(result);
 		return pitch;*/
 
-		FMOD_RESULT result = m_channelGroup->setPitch(value);
+		FMOD_RESULT result = channelGroup->setPitch(value);
 		FMODCheckError(result);
 	}
 
@@ -300,18 +355,18 @@ namespace audio
 		return isPlaying;
 	}
 
-	float ChannelManager::GetChannelVolume()
+	float ChannelManager::GetChannelVolume(FMOD::ChannelGroup* channelGroup)
 	{
 		float volume;
-		FMOD_RESULT result = m_channelGroup->getVolume(&volume);
+		FMOD_RESULT result = channelGroup->getVolume(&volume);
 		FMODCheckError(result);
 		return volume;		
 	}
 
-	float ChannelManager::GetChannelPitch()
+	float ChannelManager::GetChannelPitch(FMOD::ChannelGroup* channelGroup)
 	{
 		float pitch;
-		FMOD_RESULT result = m_channelGroup->getPitch(&pitch);
+		FMOD_RESULT result = channelGroup->getPitch(&pitch);
 		FMODCheckError(result);
 		return pitch;
 	}
